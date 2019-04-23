@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
 
-    let itemArray = ["Пнуть Игоряку", "Покурить", "Распределить задачки"]
+    var itemArray = ["Пнуть Игоряку", "Покурить", "Распределить задачки"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +44,31 @@ class TodoListViewController: UITableViewController {
         }
          tableView.deselectRow(at: indexPath, animated: true) //убираем выделение с ячейки таблицы после того как её выбрали
     }
+    
+        //MARK - AddNewTodoSection
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var newToDoTextField = UITextField()
 
+        
+        let alert = UIAlertController(title: "Новая хрень", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Добавить", style: .default) { (action) in
+            //что случится, когда юзер кликнет на кнопку "Добавить" на алерте
+            self.itemArray.append(newToDoTextField.text!)
+            self.tableView.reloadData()
+        }
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Плоти нологи"
+            newToDoTextField = alertTextField
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion:  nil)
+        
+    }
+    
 }
 
