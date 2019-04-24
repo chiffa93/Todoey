@@ -12,8 +12,13 @@ class TodoListViewController: UITableViewController {
 
     var itemArray = ["Пнуть Игоряку", "Покурить", "Распределить задачки"]
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let items = defaults.array(forKey: "ToDoListArray") as? [String] {
+            itemArray = items
+        }
         
         
     }
@@ -57,6 +62,9 @@ class TodoListViewController: UITableViewController {
         let action = UIAlertAction(title: "Добавить", style: .default) { (action) in
             //что случится, когда юзер кликнет на кнопку "Добавить" на алерте
             self.itemArray.append(newToDoTextField.text!)
+            
+            self.defaults.set(self.itemArray, forKey: "ToDoListArray")
+            
             self.tableView.reloadData()
         }
         alert.addTextField { (alertTextField) in
